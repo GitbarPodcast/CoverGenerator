@@ -4,6 +4,8 @@ import speaker1 from "./assets/speaker1.png";
 import speaker2 from "./assets/speaker2.png";
 import speaker3 from "./assets/speaker3.png";
 
+let COVER = window.__COVER__;
+
 function App() {
   return (
     <div
@@ -17,7 +19,7 @@ function App() {
       }}
     >
       <div style={{ height: "50vh", width: "50vw" }}>
-        <Cover
+        {/* <Cover
           name="Matteo"
           surname="Collina"
           image={speaker1}
@@ -55,24 +57,26 @@ function App() {
           company="VMware - rabbitmq"
           variant="BR"
         ></Cover>
-      </div>
-      <div style={{ height: "100vh", width: "100vw" }}>
+      </div> */}
+        <div style={{ height: "100vh", width: "100vw" }}>
+          <Cover
+            name={COVER.name}
+            surname={COVER.surname}
+            image={COVER.image}
+            episodeNumber={COVER.episodeNumber}
+            company={COVER.company}
+            variant={COVER.variant}
+            theme={COVER.theme}
+          ></Cover>
+        </div>
+        {/* <div style={{ height: "60vh", width: "100vw" }}>
         <Cover
           name="Matteo"
           surname="Collina"
           image={speaker1}
           episodeNumber={103}
           company="Nearform"
-        ></Cover>
-      </div>
-      <div style={{ height: "60vh", width: "100vw" }}>
-        <Cover
-          name="Matteo"
-          surname="Collina"
-          image={speaker1}
-          episodeNumber={103}
-          company="Nearform"
-        ></Cover>
+        ></Cover> */}
       </div>
     </div>
   );
