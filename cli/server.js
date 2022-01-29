@@ -58,57 +58,49 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var consts_1 = require("./consts");
-var prompts_1 = __importDefault(require("prompts"));
-var cloudinary = __importStar(require("cloudinary"));
-var server_1 = __importDefault(require("./server"));
-var printer_1 = __importDefault(require("./printer"));
-var dotenv_1 = __importDefault(require("dotenv"));
-var fileUtils_1 = require("./fileUtils");
-var crypto_1 = require("crypto");
-dotenv_1["default"].config();
-cloudinary.v2.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
-    secure: true
-});
-(function () {
-    return __awaiter(this, void 0, void 0, function () {
-        var response, tempFileSeed, rawImage, alphaImage, url;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, prompts_1["default"])(consts_1.PROMPTS)];
-                case 1:
-                    response = _a.sent();
-                    tempFileSeed = (0, crypto_1.randomUUID)();
-                    return [4 /*yield*/, (0, fileUtils_1.downloadImage)(response.image, tempFileSeed)];
-                case 2:
-                    rawImage = _a.sent();
-                    if (!process.env.REMOVE_BG_API_KEY) {
-                        throw new Error("REMOVE_BG_API_KEY is not set");
-                    }
-                    if (!response.removeBG) return [3 /*break*/, 4];
-                    return [4 /*yield*/, (0, fileUtils_1.removeBackground)(rawImage, process.env.REMOVE_BG_API_KEY, tempFileSeed)];
-                case 3:
-                    alphaImage = _a.sent();
-                    return [3 /*break*/, 5];
-                case 4:
-                    alphaImage = rawImage;
-                    _a.label = 5;
-                case 5: return [4 /*yield*/, (0, fileUtils_1.applyEffects)(alphaImage)];
-                case 6:
-                    url = _a.sent();
-                    response.image = url;
-                    return [4 /*yield*/, (0, fileUtils_1.downloadFile)(url, "dest")];
-                case 7:
-                    _a.sent();
-                    return [4 /*yield*/, (0, server_1["default"])(response, printer_1["default"])];
-                case 8:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
+var fastify_1 = __importDefault(require("fastify"));
+var fastify_static_1 = __importDefault(require("fastify-static"));
+var pfs = __importStar(require("fs/promises"));
+var path = __importStar(require("path"));
+exports["default"] = (function (response, printer) { return __awaiter(void 0, void 0, void 0, function () {
+    var injectHtml, server;
+    return __generator(this, function (_a) {
+        injectHtml = "\n  <script>\n    window.__COVER__ = ".concat(JSON.stringify(response), "\n  </script>\n");
+        server = (0, fastify_1["default"])({ logger: { level: "trace" } });
+        server.register(fastify_static_1["default"], {
+            root: path.join(__dirname, "../dist"),
+            index: false
         });
+        server.get("/", function (_, reply) { return __awaiter(void 0, void 0, void 0, function () {
+            var html;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, pfs.readFile(path.join(__dirname, "../dist/index.html"), "utf8")];
+                    case 1:
+                        html = (_a.sent()).replace("<title>Vite App</title>", injectHtml);
+                        reply.type("text/html").send(html);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        server.listen(8080, function (err, address) { return __awaiter(void 0, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (err) {
+                            console.error(err);
+                            process.exit(1);
+                        }
+                        console.log("Server listening at ".concat(address));
+                        return [4 /*yield*/, printer(address)];
+                    case 1:
+                        _a.sent();
+                        console.log("print finish");
+                        server.close();
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        return [2 /*return*/];
     });
-})();
-function print() { }
+}); });
