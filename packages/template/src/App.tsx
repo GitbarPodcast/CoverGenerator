@@ -1,10 +1,13 @@
 import Cover from "./components/Cover";
-import speaker from "./assets/speaker.png";
-import speaker1 from "./assets/speaker1.png";
-import speaker2 from "./assets/speaker2.png";
-import speaker3 from "./assets/speaker3.png";
 
-let COVER = window.__COVER__;
+let COVER = window?.__COVER__ || {
+  name: "Test",
+  surname: "Test",
+  company: "Test",
+  episodeNumber: 1,
+  image:
+    "https://res.cloudinary.com/brainrepo/image/upload/v1643752139/lytp0sdklrfzuhntk3iz.png",
+};
 
 function App() {
   return (

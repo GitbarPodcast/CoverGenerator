@@ -43,8 +43,7 @@ export async function removeBackground(
 
     const destPath = path.resolve(
       __dirname,
-      "../tmp",
-      `${fileSeed}-no-bg.${ext}`
+      `../../../cover/${fileSeed}-no-bg.${ext}`
     );
     const writer = createWriteStream(destPath);
 
@@ -92,7 +91,10 @@ export async function downloadFile(
       return reject(new Error(`${ext} is an invalid file type`));
     }
 
-    const filePath = path.resolve(__dirname, "../tmp", `${destName}.${ext}`);
+    const filePath = path.resolve(
+      __dirname,
+      `../../../cover/${destName}.${ext}`
+    );
     const writer = createWriteStream(filePath);
 
     response.data.pipe(writer);

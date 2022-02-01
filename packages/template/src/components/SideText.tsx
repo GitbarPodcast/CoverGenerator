@@ -1,31 +1,30 @@
 import styled, { css } from "styled-components";
-import { THEMES, Variant } from "../theme";
-import type { Theme } from "../theme";
+import { theme } from "@gitbar-podcast/cover-generator-shared";
 import { useElementSize } from "usehooks-ts";
 import { useLayoutEffect } from "react";
 
-const align: Record<Variant, string> = {
+const align: Record<theme.Variant, string> = {
   TL: `right`,
   TR: `right`,
   BL: `left`,
   BR: `left`,
 } as const;
 
-const episodeNumberAlign: Record<Variant, string> = {
+const episodeNumberAlign: Record<theme.Variant, string> = {
   TL: `left`,
   TR: `right`,
   BL: `left`,
   BR: `right`,
 } as const;
 
-const direction: Record<Variant, string> = {
+const direction: Record<theme.Variant, string> = {
   TL: `column`,
   TR: `column`,
   BL: `column-reverse`,
   BR: `column-reverse`,
 } as const;
 
-const Container = styled.div<{ variant: Variant }>`
+const Container = styled.div<{ variant: theme.Variant }>`
   display: flex;
   flex-direction: column-reverse;
   ${({ variant }) => css`
@@ -34,7 +33,7 @@ const Container = styled.div<{ variant: Variant }>`
   height: 100%;
 `;
 
-const TextContainer = styled.div<{ variant: Variant }>`
+const TextContainer = styled.div<{ variant: theme.Variant }>`
   writing-mode: vertical-rl;
   text-orientation: mixed;
   flex-grow: 1;
@@ -50,20 +49,20 @@ const Name = styled.div`
   font-family: outfit;
   font-weight: bold;
   text-transform: uppercase;
-  ${({ theme, fontSize }: { theme: Theme; fontSize: number }) => css`
-    line-height: ${fontSize * 0.8}px;
-    font-size: ${fontSize}px;
-    color: ${THEMES[theme].TEXT};
+  ${(props: { theme: theme.Theme; fontSize: number }) => css`
+    line-height: ${props.fontSize * 0.8}px;
+    font-size: ${props.fontSize}px;
+    color: ${theme.THEMES[props.theme].TEXT};
   `};
 `;
 const Surname = styled.div`
   font-family: outfit;
   font-weight: bold;
   text-transform: uppercase;
-  ${({ theme, fontSize }: { theme: Theme; fontSize: number }) => css`
-    line-height: ${fontSize * 0.8}px;
-    font-size: ${fontSize}px;
-    color: ${THEMES[theme].SECONDARY_TEXT};
+  ${(props: { theme: theme.Theme; fontSize: number }) => css`
+    line-height: ${props.fontSize * 0.8}px;
+    font-size: ${props.fontSize}px;
+    color: ${theme.THEMES[props.theme].SECONDARY_TEXT};
   `};
 `;
 const Company = styled.div`
@@ -71,10 +70,10 @@ const Company = styled.div`
   font-weight: bold;
   text-transform: uppercase;
   color: #f8fafc;
-  ${({ theme, fontSize }: { theme: Theme; fontSize: number }) => css`
-    line-height: ${fontSize * 1.6}px;
-    font-size: ${fontSize}px;
-    color: ${THEMES[theme].TERTIARY_TEXT};
+  ${(props: { theme: theme.Theme; fontSize: number }) => css`
+    line-height: ${props.fontSize * 1.6}px;
+    font-size: ${props.fontSize}px;
+    color: ${theme.THEMES[props.theme].TERTIARY_TEXT};
   `};
 `;
 
@@ -82,18 +81,14 @@ const EpisodeNumber = styled.div`
   font-family: outfit;
   font-weight: bold;
   text-transform: uppercase;
-  ${({
-    theme,
-    fontSize,
-    variant,
-  }: {
-    theme: Theme;
+  ${(props: {
+    theme: theme.Theme;
     fontSize: number;
-    variant: Variant;
+    variant: theme.Variant;
   }) => css`
-    text-align: ${episodeNumberAlign[variant]};
-    font-size: ${fontSize}px;
-    color: ${THEMES[theme].TERTIARY_TEXT};
+    text-align: ${episodeNumberAlign[props.variant]};
+    font-size: ${props.fontSize}px;
+    color: ${theme.THEMES[props.theme].TERTIARY_TEXT};
   `};
 `;
 
@@ -114,9 +109,9 @@ function SideText({
   name: string;
   surname: string;
   company: string;
-  theme: Theme;
+  theme: theme.Theme;
   episodeNumber: number;
-  variant: Variant;
+  variant: theme.Variant;
 }) {
   //Calculate the font size
   const [containerRef, { width, height }] = useElementSize();

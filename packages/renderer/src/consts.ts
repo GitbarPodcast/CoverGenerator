@@ -1,5 +1,5 @@
 import { PromptObject } from "prompts";
-import { VARIANTS, THEMES } from "../src/theme";
+import { theme } from "@gitbar-podcast/cover-generator-shared";
 
 export interface Conf {
   name: string;
@@ -39,7 +39,7 @@ export const PROMPTS: PromptObject[] = [
   {
     type: "toggle",
     name: "removeBG",
-    message: "Remove backgorund?",
+    message: "Remove background?",
     initial: true,
     active: "yes",
     inactive: "no",
@@ -57,7 +57,7 @@ export const PROMPTS: PromptObject[] = [
     message: "Pick theme",
     choices: [
       { title: "auto", value: null },
-      ...Object.keys(THEMES).map((e) => ({ title: e, value: e })),
+      ...Object.keys(theme.THEMES).map((e) => ({ title: e, value: e })),
     ],
   },
   {
@@ -66,7 +66,7 @@ export const PROMPTS: PromptObject[] = [
     message: "Pick variant",
     choices: [
       { title: "auto", value: null },
-      ...Object.keys(VARIANTS).map((e) => ({ title: e, value: e })),
+      ...Object.keys(theme.VARIANTS).map((e) => ({ title: e, value: e })),
     ],
   },
 ];

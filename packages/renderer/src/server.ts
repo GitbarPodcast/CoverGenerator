@@ -17,13 +17,16 @@ export default async (
   const server = fastify({ logger: { level: "trace" } });
 
   server.register(fastifyStatic, {
-    root: path.join(__dirname, "../dist"),
+    root: path.join(__dirname, "../../../assets"),
     index: false,
   });
 
   server.get("/", async (_, reply) => {
     const html = (
-      await pfs.readFile(path.join(__dirname, "../dist/index.html"), "utf8")
+      await pfs.readFile(
+        path.join(__dirname, "../../../assets/index.html"),
+        "utf8"
+      )
     ).replace("<title>Vite App</title>", injectHtml);
     reply.type("text/html").send(html);
   });

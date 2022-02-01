@@ -1,0 +1,29 @@
+{
+  "name": "@gitbar-podcast/cover-generator-template",
+  "version": "0.0.0",
+  "mainDir": "src",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build --emptyOutDir",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/outfit": "^4.5.2",
+    "@gitbar-podcast/cover-generator-shared": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-svg-blob": "^0.3.0",
+    "styled-components": "^5.3.3",
+    "svg-round-corners": "^0.3.0",
+    "usehooks-ts": "^2.2.1"
+  },
+  "devDependencies": {
+    "@types/hoist-non-react-statics": "^3.3.1",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@types/styled-components": "^5.1.21",
+    "@vitejs/plugin-react": "^1.0.7",
+    "typescript": "^4.5.5",
+    "vite": "^2.7.2"
+  }
+}
