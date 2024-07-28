@@ -3,11 +3,7 @@ import puppeteer from "puppeteer";
 
 const FORMATS: Record<string, { width: number; height: number }> = {
   podcast: { width: 1400, height: 1400 },
-  facebook: { width: 1200, height: 630 },
-  twitter: { width: 1200, height: 675 },
-  instagram: { width: 1080, height: 1080 },
-  linkedin: { width: 1200, height: 628 },
-  story: { width: 1200, height: 1920 },
+  youtube: { width: 2560, height: 1440 },
 } as const;
 
 export default async (address: string) => {

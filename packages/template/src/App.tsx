@@ -1,12 +1,13 @@
 import Cover from "./components/Cover";
-
+import bg from "./assets/bg.jpg";
+import sp from "./assets/speaker1.png";
 let COVER = window?.__COVER__ || {
-  name: "Test",
-  surname: "Test",
-  company: "Test",
+  name: "Flavio",
+  surname: "Castelli",
+  company: "Microsoft",
   episodeNumber: 1,
   image:
-    "https://res.cloudinary.com/brainrepo/image/upload/v1643752139/lytp0sdklrfzuhntk3iz.png",
+    "https://res.cloudinary.com/brainrepo/image/upload/v1683300525/qz1elsotmcsu9umfhhkm.png",
 };
 
 function App() {
@@ -61,8 +62,74 @@ function App() {
           variant="BR"
         ></Cover>
       </div> */}
-        <div style={{ height: "100vh", width: "100vw" }}>
-          <Cover
+        <div
+          style={{
+            height: "100vh",
+            width: "100vw",
+            backgroundImage: `url(${bg})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <img
+            src={COVER.image}
+            alt=""
+            style={{
+              position: "absolute",
+              bottom: 0,
+              right: 0,
+              height: "100vh",
+
+              filter:
+                "grayscale(100%), drop-shadow(10px 10px 5px rgba(0, 0, 0, 1)) ",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              bottom: "4vh",
+              left: "2vh",
+            }}
+          >
+            <div
+              style={{
+                color: "#FFC901",
+                fontSize: "4vh",
+                display: "inline",
+
+                zIndex: 300,
+              }}
+              className="message-text"
+            >
+              EP. {COVER.episodeNumber}
+            </div>
+
+            <div
+              style={{
+                color: "white",
+                fontSize: "10vh",
+              }}
+              className="message-text"
+            >
+              {COVER.name} &nbsp;
+              {COVER.surname}
+            </div>
+
+            <div
+              style={{
+                color: "#FFC901",
+                fontSize: "6vh",
+                display: "inline",
+              }}
+              className="message-text"
+            >
+              {COVER.company}
+            </div>
+          </div>
+
+          {/* <Cover
             name={COVER.name}
             surname={COVER.surname}
             image={COVER.image}
@@ -70,16 +137,8 @@ function App() {
             company={COVER.company}
             variant={COVER.variant}
             theme={COVER.theme}
-          ></Cover>
+          ></Cover> */}
         </div>
-        {/* <div style={{ height: "60vh", width: "100vw" }}>
-        <Cover
-          name="Matteo"
-          surname="Collina"
-          image={speaker1}
-          episodeNumber={103}
-          company="Nearform"
-        ></Cover> */}
       </div>
     </div>
   );

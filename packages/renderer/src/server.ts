@@ -1,5 +1,5 @@
 import fastify from "fastify";
-import fastifyStatic from "fastify-static";
+import fastifyStatic from "@fastify/static";
 import * as pfs from "fs/promises";
 import * as path from "path";
 import { Conf } from "./consts";

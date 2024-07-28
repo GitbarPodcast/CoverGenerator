@@ -62,8 +62,9 @@ export async function applyEffects(filePath: string) {
     gravity: "face",
     crop: "crop",
     zoom: "0.7",
-    effect: "vectorize:detail:1.0:corners:40:colors:5",
-    format: "svg",
+    effect: "grayscale",
+    // effect: "vectorize:detail:1.0:corners:40:colors:5",
+    // format: "svg",
   });
   return url;
 }

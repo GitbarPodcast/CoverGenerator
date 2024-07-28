@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "./main.css";
 import "@fontsource/outfit";
+import "./assets/newsunfont.ttf";
 
 declare global {
   interface Window {
